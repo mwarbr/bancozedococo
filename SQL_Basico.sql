@@ -9,6 +9,30 @@ Criação e Normalização do Banco
 
 */
 
+/*------------------------------------------
+      Subindo um banco de Dados Existente
+
+Conectar ao SGBD
+	1º Se conectar ao SGBD (Sistema de Gerenciamento do Banco de dados (mySQL)
+
+	2º Conectese através do menu "DATABASE" > "Connect to Database"
+
+	3º Colocando as informações do seu servidor
+		- IP ou nome do servidor - localhost
+        - Porta do banco: 3306
+        - usuário - super usuário root/admin
+        - senha - vazia/sem senha - admin
+        
+Rodar o Script SQL que cria o banco de dados - BD
+	1º Rodar o Script que cria o Banco de dados ou Schema
+    
+    2º Rodar o Scrip com os dados do Banco de Dados
+    
+------------------------------------------*/
+
+/*-------------------------------------------------------------
+	Read - Comandos de Pesquisa/Query's - SELECT e suas Funções
+---------------------------------------------------------------*/
 -- 1º) Selecionar o Banco de dados Sakila
 USE sakila;
 
@@ -48,5 +72,39 @@ FROM  rental ;
  -- 9º) Fazer uma consulta juntando o sobrenome, nome da tabela actor e nomear a coluna como autor
  SELECT CONCAT( last_name," , ", first_name ) AS autor FROM actor;
  
+ -- 10º) A consulta é sempre LITERAL, ele traz exatamente resultados que comibem com a palavra pesquisada
+ --      A consulta sempre retorna na ordem que aconteceu o cadastro ou ordenado
+ -- 	 Cláusula ORDER BY coluna - serve para ordenarmos o retorno da busca
+ -- 	 ASC ou DES - colocam em ordem Ascendente é o padrão (A-Z 0-9) ou Descendente (Z-A ou 9-0)
+  SELECT actor_id , last_name  FROM actor ORDER BY actor_id DESC;
+  
+  -- 11º) Descobrir qual o maior e o menor pagamento recebido pela locadora (payment)
+  -- 		MAX() - pega o valor máximo da coluna
+  -- 		MIN() - pega o valor mínimo da coluna
+  SELECT payment_id , amount  FROM payment;
+  SELECT payment_id , MAX( amount ) FROM payment;
+  SELECT payment_id , MIN( amount ) FROM payment;
  
+ -- 12º) Descobrir o código ou códigos identificadores do maior e menor valor
+ --     Cláusula WHERE campo= valor - permite filtrar os resultados
+ -- 	Cláusula WHERE LIKE valor -  permite fazer consultas abertas
+ -- 	% caracteres mútiplos (qualquer quantidade) _ ( caractere único)
+ SELECT payment_id, amount FROM payment WHERE amount = 11.99;
+ SELECT payment_id, amount FROM payment WHERE amount LIKE "__.%";
+ 
+ -- 13º Quando temos muitos dados precisamos paginar esses dados (trazê-los aos poucos do banco).
+ -- 	Cláusula LIMIT inicio, qtdade - nos permite escolher de qual resultado até qual será entregue pelo banco
+ SELECT * FROM film LIMIT 0, 10 ;
+ SELECT * FROM film LIMIT 10, 10 ;
+ SELECT * FROM film ORDER BY film_id ASC LIMIT 20, 10;
+ 
+ -- 14º Podemos fazer as operações básicas de soma +, subtração - , multiplicação * , divisão / e módulo %
+ SELECT amount * 1.3 FROM payment; -- aumento de 30%
+ SELECT amount + amount FROM payment; -- somando o valor com ele mesmo
+ SELECT amount * 0.9 FROM payment; -- desconto de 10%
+ 
+ -- 15º Podemos fazer comparações com os resultados da busca
+ SELECT payment_id, amount FROM payment WHERE amount < 5.00 ;
+ 
+ -- Desenvolvido por Maycon Guerra
  
