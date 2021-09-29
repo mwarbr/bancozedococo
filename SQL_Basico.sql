@@ -1,8 +1,8 @@
 /*
 Operações Básicas com o banco
-	Create 	- inserir registros
-	Read 	- ler os registros (SELECT)
-	Update 	- alterar registros
+	Create 	- inserir registros ( INSERT )
+	Read 	- ler os registros ( SELECT )
+	Update 	- alterar registros ( UPDATE )
 	Delete 	- Apagar registros
 
 Criação e Normalização do Banco
@@ -105,6 +105,58 @@ FROM  rental ;
  
  -- 15º Podemos fazer comparações com os resultados da busca
  SELECT payment_id, amount FROM payment WHERE amount < 5.00 ;
+ 
+/*-----------------------------------------
+	Criando tabelas para o banco de dados
+-----------------------------------------*/
+USE sakila;
+
+/*
+	 Principais tipos de dados no Banco MySQL
+     
+     - INT (255) - para números inteiros é o mesmo que no C# int 
+     - VARCHAR (255) - para caracteres alfanuméricos - é o mesmo que o string no C#
+     - TIMESTAMP - armazena a hora da interação com o banco 
+     - ENUM('item01', "item") - permite montar uma lista igual ao select no HTML
+     
+*/
+CREATE TABLE IF NOT EXISTS usuarios ( 
+	-- campo numérico (INT), comprimento (255 números) que aumenta automaticamente (auto_increment) e é chave primária (PK)
+	usuarios_id INT(255) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+    -- campo de texto (VARCHAR), comprimento ( 255 caracteres ) e Obrigatório (NOT NULL)
+    nome VARCHAR(255) NOT NULL
+ );
+ 
+/*-----------------------------------------
+Inserindo dados na Tabela
+-----------------------------------------*/ 
+USE zedococo_bd;
+
+INSERT INTO usuarios (
+	nome,
+    sobrenome,
+    email,
+    senha
+) VALUES (
+	"Maycon", 
+    "Guerra",
+    "maycon.aguerra@sp.senac.br",
+    "1234"    
+);
+
+SELECT * FROM usuarios;
+
+/*-----------------------------------------
+Alterando dados na Tabela
+
+No UPDATE é obrigatório usar o WHERE para evitar que mais de um registro seja alterado.
+Sempre usando a PK (PRIMARY KEY) chave primária 
+
+-----------------------------------------*/ 
+USE zedococo_bd;
+UPDATE usuarios SET senha =  MD5( "1234" )  WHERE id_usuarios = 1 ;
+
+
  
  -- Desenvolvido por Maycon Guerra
  
